@@ -41,10 +41,11 @@ export function NavBar() {
 
   fetchUser();
 }, []);
-const handleLogout = () => {
-  Cookies.remove("username");
+const handleLogout = async () => {
+  await fetch("/api/user/logout"); 
   router.push("/auth/login");
 };
+
 
 
   return (
