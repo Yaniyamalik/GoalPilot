@@ -9,7 +9,6 @@ import {
 } from "@tabler/icons-react";
 import { motion } from "motion/react";
 import { cn } from "../lib/util";
-import Cookies from "js-cookie";
 import { useRouter } from "next/navigation";
 import Dashboard from "./Dashboard";
 
@@ -17,11 +16,15 @@ export function SideBar() {
   const router = useRouter();
   const [open, setOpen] = useState(false);
   const [chats, setChats] = useState([]);
-  const [username, setUsername] = useState<string | null>(null);
+  const [username, setUsername] = useState<string>(""); // ✅ string type
 
   useEffect(() => {
-    const userCookie = Cookies.get("username");
-    if (userCookie) setUsername(userCookie);
+    const storedUsername =
+      typeof document !== "undefined"
+        ? localStorage.getItem("username")
+        : null;
+
+    if (storedUsername) setUsername(storedUsername);
   }, []);
 
   const links = [
@@ -49,13 +52,8 @@ export function SideBar() {
     },
   ];
 
-  
-
-  
-
   function handleLogout() {
-    Cookies.remove("username");
-    Cookies.remove("token");          
+    localStorage.removeItem("username"); // ✅ remove client-side stored username
     router.push("/auth/login");
   }
 
@@ -92,7 +90,6 @@ export function SideBar() {
             </div>
           </div>
 
-          {/* ✅ Logged-in User Display */}
           {username && (
             <SidebarLink
               link={{
@@ -100,7 +97,7 @@ export function SideBar() {
                 href: "/profile",
                 icon: (
                   <div className="h-8 w-8 rounded-full bg-purple-600 text-white flex items-center justify-center font-semibold">
-                    {username.charAt(0).toUpperCase()}
+                    {username.charAt(0)?.toUpperCase()}
                   </div>
                 ),
               }}
@@ -108,7 +105,8 @@ export function SideBar() {
           )}
         </SidebarBody>
       </Sidebar>
-     <Dashboard/>
+
+      <Dashboard />
     </div>
   );
 }
@@ -127,3 +125,4 @@ export const LogoIcon = () => (
     <div className="h-5 w-6 rounded-lg bg-black dark:bg-white" />
   </a>
 );
+
