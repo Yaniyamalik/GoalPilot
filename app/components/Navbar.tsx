@@ -4,7 +4,7 @@ import React, { useState, useEffect } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
-import { cookies } from "next/headers";
+
 
 import { ModeToggle } from "./Toggle";
 import { NavbarButton } from "@/app/components/ui/resizable-navbar";
@@ -12,7 +12,7 @@ import image1 from "../../public/assets/logo.png";
 
 export function NavBar() {
   
-const token = cookies().get("token")?.value;
+
   const navItems = [
     { name: "Home", link: "/" },
     { name: "PlanGen AI", link: "/plangen" },
