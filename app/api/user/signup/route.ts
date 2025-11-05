@@ -39,19 +39,15 @@ export async function POST(request: Request) {
         );
 
         // ✅ Store in HttpOnly cookie
-        await cookies().set("token", token, {
-            httpOnly: true,
-            secure: process.env.NODE_ENV === "production",
-            sameSite: "strict",
-            path: "/",
-            maxAge: 7 * 24 * 60 * 60, // 7 days
-        });
-        response.cookies.set("username", user.username, {
-  httpOnly: false,
-  secure: process.env.NODE_ENV === "production",   // ✅ not secure on localhost
-  sameSite: "lax",                                 // ✅ lax to allow refresh navigation
+      const cookieStore = cookies(); // ❌ no await
+
+cookieStore.set("token", token, {
+  httpOnly: true,
+  secure: process.env.NODE_ENV === "production",
+  sameSite: "strict",
   path: "/",
 });
+        
 
 
 
