@@ -54,6 +54,11 @@ const createChat = () => {
       click: () => handleLogout(),
     },
   ];
+type SidebarLinkProps = {
+  link: Links;
+  className?: string;
+  onClick?: () => void; // <-- ✅ Add this
+};
 
   function handleLogout() {
     localStorage.removeItem("username"); // ✅ remove client-side stored username
@@ -128,4 +133,15 @@ export const LogoIcon = () => (
     <div className="h-5 w-6 rounded-lg bg-black dark:bg-white" />
   </a>
 );
+export default function SidebarLink({ link, className, onClick }: SidebarLinkProps) {
+  return (
+    <button
+      className={`flex items-center gap-2 px-3 py-2 rounded-md hover:bg-gray-200 dark:hover:bg-gray-800 ${className}`}
+      onClick={onClick} // ✅ Attach click handler here
+    >
+      {link.icon}
+      <span>{link.label}</span>
+    </button>
+  );
+}
 
