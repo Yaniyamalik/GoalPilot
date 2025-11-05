@@ -17,6 +17,9 @@ export function SideBar() {
   const [open, setOpen] = useState(false);
   const [chats, setChats] = useState([]);
   const [username, setUsername] = useState<string>(""); // ✅ string type
+const createChat = () => {
+  console.log("Creating chat...");
+};
 
   useEffect(() => {
     const storedUsername =
