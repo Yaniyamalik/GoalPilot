@@ -1,19 +1,19 @@
 import connectdb from "../../../lib/dbconfig";
 import Todo from "../../../models/todo.model";
-import { NextResponse } from "next/server";
+import { NextRequest, NextResponse } from "next/server";
 import { cookies } from "next/headers";
 
 connectdb();
 
 // ✅ UPDATE TODO
 export async function PUT(
-  request: Request,
-  context: { params: { id: string } }
+  request: NextRequest,
+  context: { params: Promise<{ id: string }> }  // 👈 FIXED TYPE
 ) {
   try {
-    const { id } = await context.params;
+    const { id } = await context.params;       // ✅ MUST AWAIT
 
-    const cookieStore = await cookies(); // ❌ no await
+    const cookieStore = cookies();             // ✅ no await
     const token = cookieStore.get("token")?.value;
 
     if (!token) {
@@ -45,11 +45,11 @@ export async function PUT(
 
 // ✅ DELETE TODO
 export async function DELETE(
-  request: Request,
-  context: { params: { id: string } }
+  request: NextRequest,
+  context: { params: Promise<{ id: string }> } // 👈 FIXED TYPE
 ) {
   try {
-    const { id } = await context.params; // ❌ removed 'await'
+    const { id } = await context.params;        // ✅ await the params
 
     if (!id) {
       return NextResponse.json(
@@ -71,3 +71,4 @@ export async function DELETE(
     );
   }
 }
+
