@@ -11,6 +11,19 @@ import { motion } from "motion/react";
 import { cn } from "../lib/util";
 import { useRouter } from "next/navigation";
 import Dashboard from "./Dashboard";
+type Links = {
+  label: string;
+  href: string;
+  icon: React.ReactNode;
+  click?: () => void;
+};
+
+type SidebarLinkProps = {
+  link: Links;
+  className?: string;
+  onClick?: () => void;
+};
+
 
 export function SideBar() {
   const router = useRouter();
@@ -54,11 +67,7 @@ const createChat = () => {
       click: () => handleLogout(),
     },
   ];
-type SidebarLinkProps = {
-  link: Links;
-  className?: string;
-  onClick?: () => void; // <-- ✅ Add this
-};
+
 
   function handleLogout() {
     localStorage.removeItem("username"); // ✅ remove client-side stored username
