@@ -88,14 +88,14 @@ const createChat = () => {
 
             <div className="mt-8 flex flex-col gap-2">
               {links.map((link, idx) => (
-                <SidebarLink key={idx} link={link} onClick={link.click} />
+                <Sidebarbutton key={idx} link={link} onClick={link.click} />
               ))}
             </div>
 
             <h3 className="text-xs text-neutral-500 mt-6">Recent Chats</h3>
             <div className="flex flex-col gap-2 mt-2">
               {chats.map((chat: any) => (
-                <SidebarLink
+                <Sidebarbutton
                   key={chat._id}
                   link={{
                     label: chat.title || "Untitled Chat",
@@ -108,7 +108,7 @@ const createChat = () => {
           </div>
 
           {username && (
-            <SidebarLink
+            <Sidebarbutton
               link={{
                 label: username,
                 href: "/profile",
@@ -142,7 +142,7 @@ export const LogoIcon = () => (
     <div className="h-5 w-6 rounded-lg bg-black dark:bg-white" />
   </a>
 );
-export default function SidebarLink({ link, className, onClick }: SidebarLinkProps) {
+export default function Sidebarbutton({ link, className, onClick }: SidebarLinkProps) {
   return (
     <button
       className={`flex items-center gap-2 px-3 py-2 rounded-md hover:bg-gray-200 dark:hover:bg-gray-800 ${className}`}
