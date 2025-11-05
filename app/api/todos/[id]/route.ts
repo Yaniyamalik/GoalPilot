@@ -8,12 +8,12 @@ connectdb();
 // ✅ UPDATE TODO
 export async function PUT(
   request: NextRequest,
-  context: { params: Promise<{ id: string }> }  // 👈 FIXED TYPE
+  context: { params: Promise<{ id: string }> } 
 ) {
   try {
-    const { id } = await context.params;       // ✅ MUST AWAIT
+    const { id } = await context.params;     
 
-    const cookieStore = cookies();             // ✅ no await
+    const cookieStore = await cookies();             
     const token = cookieStore.get("token")?.value;
 
     if (!token) {
@@ -46,11 +46,10 @@ export async function PUT(
 // ✅ DELETE TODO
 export async function DELETE(
   request: NextRequest,
-  context: { params: Promise<{ id: string }> } // 👈 FIXED TYPE
+  context: { params: Promise<{ id: string }> } 
 ) {
   try {
-    const { id } = await context.params;        // ✅ await the params
-
+    const { id } = await context.params;        
     if (!id) {
       return NextResponse.json(
         { message: "Todo ID is required" },
