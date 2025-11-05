@@ -22,7 +22,8 @@ export function NavBar() {
 
   const router = useRouter();
   const [mobileOpen, setMobileOpen] = useState(false);
-  const [username, setUsername] = useState(null);
+ const [username, setUsername] = useState<string>("");
+
 
  useEffect(() => {
   async function fetchUser() {
@@ -78,7 +79,7 @@ const handleLogout = async () => {
               >
                 {/* Avatar circle first letter */}
                 <div className="w-9 h-9 rounded-full bg-purple-600 text-white flex items-center justify-center font-semibold">
-                  {username.charAt(0).toUpperCase()}
+                  {username?.charAt(0)?.toUpperCase()}
                 </div>
                 <span className="text-sm font-medium">{username}</span>
               </div>
